@@ -16,9 +16,11 @@ return new class extends Migration
             $table->string('name');
             $table->string('address');
             $table->string('phone');
+            $table->string('email');
+            $table->date('date_of_birth');
             $table->integer('age');
             $table->string('work');
-            $table->string('card-number')->nullable();
+            $table->string('card_number')->nullable();
             $table->foreignId('user_id')
                   ->nullable()
                   ->constrained()

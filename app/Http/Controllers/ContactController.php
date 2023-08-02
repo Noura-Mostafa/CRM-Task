@@ -26,13 +26,15 @@ class ContactController extends Controller
     }
 
 
-    public function store(Request $request , User $user)
+    public function store(Request $request)
     {
 
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'address' => ['nullable', 'string'],
             'phone' => ['required', 'string', 'max:255'],
+            'email' => ['required' , 'max:255'],
+            'date_of_birth' => ['required'],
             'work' => ['required', 'string', 'max:255'],
             'user_id' => ['nullable', 'int', 'exists:users,id'],
         ]);
@@ -66,6 +68,8 @@ class ContactController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'address' => ['nullable', 'string'],
             'phone' => ['required', 'string', 'max:255'],
+            'email' => ['required' , 'max:255'],
+            'date_of_birth' => ['required'],
             'work' => ['required', 'string', 'max:255'],
             'user_id' => ['nullable', 'int', 'exists:users,id'],
         ]);
@@ -79,7 +83,6 @@ class ContactController extends Controller
 
         return redirect()->route('contacts.show' , $contact->id)
             ->with([
-                'success' => 'Contact updated!',
                 'contact' => $contact,
             ]);
     }
