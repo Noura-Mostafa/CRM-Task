@@ -12,17 +12,21 @@ class ContactController extends Controller
 
     public function index()
     {
-        return view('contacts.index');
+        $contacts = Contact::where('user_id' , Auth::id())->get();
+
+        return view('contacts.index' , [
+            'contacts' => $contacts,
+        ]);
     }
 
 
-    public function create(User $user)
+    public function create()
     {
         return view('contacts.create');
     }
 
 
-    public function store(Request $request)
+    public function store(Request $request , User $user)
     {
 
         $request->validate([
@@ -39,34 +43,20 @@ class ContactController extends Controller
 
         $contact = Contact::create($request->all());
 
-
         return redirect()->route('contacts.show',$contact->id);
 
     }
 
-    public function show(User $user , Contact $contact)
+    public function show(Contact $contact)
     {
 
-        // $contact = Contact::where('user_id' , 'user.id')->get();
-
-        return view(
-            'contacts.show',
-            [
-                'contact' => $contact,
-                'user' => $user
-            ]
-        );
+        return view('contacts.show',['contact' => $contact]);
     }
 
 
     public function edit(Contact $contact)
     {
-        return view(
-            'contacts.edit',
-            [
-                'contact' => $contact,
-            ]
-        );
+        return view('contacts.edit',['contact' => $contact]);
     }
 
 

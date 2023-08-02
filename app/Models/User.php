@@ -3,14 +3,12 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-
-use App\Http\Controllers\ContactController;
-use App\Models\Scopes\UserContactScope;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
+use App\Models\Contact;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
@@ -50,7 +48,7 @@ class User extends Authenticatable
 
     public function contacts(): HasMany
     {
-        return $this->hasMany(ContactController::class, 'user_id', 'id');
+        return $this->hasMany(Contact::class, 'user_id', 'id');
     }
 
     protected static function booted()
