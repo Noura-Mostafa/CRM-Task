@@ -8,7 +8,7 @@
 
     <x-errorbox/>
 
-    <form action="{{ route('users.contacts.store' , $user->id) }}" method="post">
+    <form action="{{ route('contacts.store') }}" method="post">
         @csrf
 
         <div class="form-floating mb-3">

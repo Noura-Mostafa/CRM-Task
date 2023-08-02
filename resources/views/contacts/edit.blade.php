@@ -8,7 +8,7 @@
 
     <x-errorbox />
 
-    <form action="{{ route('users.contacts.update' ,[$user->id ,$contact->id]) }}" method="post">
+    <form action="{{ route('contacts.update' ,$contact->id) }}" method="post">
         @csrf
         @method('put')
 

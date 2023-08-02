@@ -10,23 +10,19 @@ use Illuminate\Support\Facades\Auth;
 class ContactController extends Controller
 {
 
-    public function index(User $user)
+    public function index()
     {
-        return view('contacts.index' , [
-            'user' => $user
-        ]);
+        return view('contacts.index');
     }
 
 
     public function create(User $user)
     {
-        return view('contacts.create' , [
-            'user' => $user
-        ]);
+        return view('contacts.create');
     }
 
 
-    public function store(Request $request , User $user)
+    public function store(Request $request)
     {
 
         $request->validate([
@@ -44,14 +40,14 @@ class ContactController extends Controller
         $contact = Contact::create($request->all());
 
 
-        return redirect()->route('users.contacts.show',[$user->id, $contact->id]);
+        return redirect()->route('contacts.show',$contact->id);
 
     }
 
     public function show(User $user , Contact $contact)
     {
 
-        $contact = Contact::where('user_id' , $user->id)->get();
+        // $contact = Contact::where('user_id' , 'user.id')->get();
 
         return view(
             'contacts.show',
@@ -63,19 +59,18 @@ class ContactController extends Controller
     }
 
 
-    public function edit(User $user , Contact $contact)
+    public function edit(Contact $contact)
     {
         return view(
             'contacts.edit',
             [
                 'contact' => $contact,
-                'user' => $user,
             ]
         );
     }
 
 
-    public function update(Request $request,User $user , Contact $contact)
+    public function update(Request $request , Contact $contact)
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
@@ -92,18 +87,17 @@ class ContactController extends Controller
         $contact->update($request->all());
 
 
-        return redirect()->route('users.contacts.show' , [$user->id , $contact->id])
+        return redirect()->route('contacts.show' , $contact->id)
             ->with([
                 'success' => 'Contact updated!',
                 'contact' => $contact,
-                'user' => $user,
             ]);
     }
 
 
-    public function destroy(User $user ,Contact $contact)
+    public function destroy(Contact $contact)
     {
         $contact->delete();
-        return redirect()->route('users.contacts.show' , [$user->id , $contact->id]);
+        return redirect()->route('contacts.index');
     }
 }
