@@ -28,10 +28,11 @@
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             {{auth()->user()->name}}
                         </a>
-                    </li>
+                    
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="{{route('logout')}}">logout</a></li>
                     </ul>
+                </li>
                 </ul>
             </div>
         </div>

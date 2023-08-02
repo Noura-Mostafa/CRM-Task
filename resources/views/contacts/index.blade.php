@@ -15,7 +15,6 @@
     <table class="table mt-4 border">
         <thead>
             <tr>
-                <th scope="col">#</th>
                 <th scope="col">Contact Name</th>
                 <th scope="col">Phone</th>
                 <th scope="col">Actions</th>
@@ -25,7 +24,6 @@
         <tbody>
             @foreach ($contacts as $contact)
             <tr>
-                <th scope="row">{{$contact->id}}</th>
                 <td>{{$contact->name}}</td>
                 <td>{{$contact->phone}}</td>
                 <td class="w-25">
