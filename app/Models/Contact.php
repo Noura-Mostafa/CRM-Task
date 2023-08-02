@@ -11,7 +11,7 @@ class Contact extends Model
     use HasFactory;
 
     protected $fillable = [
-         'name' , 'address' , 'phone' , 'age' , 'work' , 'card number' , 
+         'name' , 'address' , 'phone' , 'age' , 'work' , 'card number' , 'user_id'
     ];
 
     public function user(): BelongsTo

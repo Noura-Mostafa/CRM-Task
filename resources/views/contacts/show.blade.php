@@ -13,11 +13,11 @@
     <h6>{{$contact->work}}</h6>
 
     <div class="actions d-flex justify-content-between">
-    <a class="btn btn-dark btn-sm" href="{{route('users.contacts.edit' ,[$user->id , $contact->id])}}">Edit</a>
+    <a class="btn btn-dark btn-sm rounded-pill" href="{{route('users.contacts.edit' ,[$user->id , $contact->id])}}">Edit</a>
     <form action="{{route('users.contacts.destroy' , [$user->id , $contact->id])}}" method="post">
         @csrf
         {{method_field("DELETE")}}
-        <button class="btn btn-danger btn-sm" type="submit">Delete</button>
+        <button class="btn btn-danger rounded-pill btn-sm" type="submit">Delete</button>
     </form>
     </div>
     </div>

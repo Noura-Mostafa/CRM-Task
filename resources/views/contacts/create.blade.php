@@ -41,7 +41,7 @@
             <label for="card-number">Card number</label>
         </div>
 
-        <button type="submit" class="btn btn-info">Add</button>
+        <button type="submit" class="btn btn-info rounded-pill">Add</button>
 
 
     </form>

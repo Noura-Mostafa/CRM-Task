@@ -44,19 +44,14 @@ class ContactController extends Controller
         $contact = Contact::create($request->all());
 
 
-        return redirect()->route('users.contacts.show',[$user->id, $contact->id])
-            ->with([
-                'success' => 'Contact created!',
-                'contacts' => $contact,
-                'user' => $user
-            ]);
-    }
+        return redirect()->route('users.contacts.show',[$user->id, $contact->id]);
 
+    }
 
     public function show(User $user , Contact $contact)
     {
 
-        $contact = Contact::all();
+        $contact = Contact::where('user_id' , $user->id)->get();
 
         return view(
             'contacts.show',
