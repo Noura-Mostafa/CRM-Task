@@ -52,7 +52,7 @@
         </tbody>
 
     </table>
-    {{$contacts->links()}}
+    {{$contacts->withQueryString()->links()}}
 
 
 
