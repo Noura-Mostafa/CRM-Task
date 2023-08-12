@@ -51,8 +51,4 @@ class User extends Authenticatable
         return $this->hasMany(Contact::class, 'user_id', 'id');
     }
 
-    protected static function booted()
-    {
-        // static::addGlobalScope(new UserContactScope);
-    }
 }
