@@ -9,17 +9,24 @@ use Illuminate\Support\Facades\Auth;
 class ContactController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        $contacts = Contact::where('user_id' , Auth::id())
-                ->latest()
-                ->get();
+        $query = Contact::where('user_id', Auth::id())
+            ->latest();
 
-        return view('contacts.index' , [
+        if ($request->search) {
+            $query->where('name', 'LIKE', "%{$request->search}%")
+                  ->orWhere('email', 'LIKE', "%{$request->search}%");
+        }
+
+        $contacts = $query->simplePaginate(4);
+
+
+        return view('contacts.index', [
             'contacts' => $contacts,
         ]);
-    }
 
+    }
 
     public function create()
     {
@@ -34,7 +41,7 @@ class ContactController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'address' => ['nullable', 'string'],
             'phone' => ['required', 'string', 'max:255'],
-            'email' => ['required' , 'max:255'],
+            'email' => ['required', 'max:255'],
             'date_of_birth' => ['required'],
             'work' => ['required', 'string', 'max:255'],
             'user_id' => ['nullable', 'int', 'exists:users,id'],
@@ -47,28 +54,27 @@ class ContactController extends Controller
         Auth::user()->contacts()->create($request->all());
 
         return redirect()->route('contacts.index');
-
     }
 
     public function show(Contact $contact)
     {
-        return view('contacts.show',['contact' => $contact]);
+        return view('contacts.show', ['contact' => $contact]);
     }
 
 
     public function edit(Contact $contact)
     {
-        return view('contacts.edit',['contact' => $contact]);
+        return view('contacts.edit', ['contact' => $contact]);
     }
 
 
-    public function update(Request $request , Contact $contact)
+    public function update(Request $request, Contact $contact)
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'address' => ['nullable', 'string'],
             'phone' => ['required', 'string', 'max:255'],
-            'email' => ['required' , 'max:255'],
+            'email' => ['required', 'max:255'],
             'date_of_birth' => ['required'],
             'work' => ['required', 'string', 'max:255'],
             'user_id' => ['nullable', 'int', 'exists:users,id'],
