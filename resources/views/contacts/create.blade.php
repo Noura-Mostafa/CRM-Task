@@ -4,7 +4,7 @@
 @section('content')
 
 <div class="container pt-5 text-center">
-    <h1>Add Your Contacts</h1>
+    <h1 class="mb-3">Add Your Contacts</h1>
 
     <x-errorbox />
 
@@ -31,6 +31,9 @@
                 <input type="text" name="address" class="form-control" id="address" placeholder="Address">
                 <label for="address">Address</label>
             </div>
+
+            <button type="submit" class="btn btn-info btn-lg rounded-pill me-5">Add Contact</button>
+
         </div>
 
         <div class="col-two">
@@ -53,8 +56,6 @@
                 <input type="text" name="card_number" class="form-control" id="card_number" placeholder="Card number">
                 <label for="card_number">Card number</label>
             </div>
-
-            <button type="submit" class="btn btn-info btn-lg rounded-pill me-5">Add Contact</button>
 
         </div>
 

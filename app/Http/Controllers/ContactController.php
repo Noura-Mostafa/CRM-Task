@@ -12,7 +12,9 @@ class ContactController extends Controller
 
     public function index()
     {
-        $contacts = Contact::where('user_id' , Auth::id())->get();
+        $contacts = Contact::where('user_id' , Auth::id())
+                ->latest()
+                ->get();
 
         return view('contacts.index' , [
             'contacts' => $contacts,
@@ -43,15 +45,14 @@ class ContactController extends Controller
             'user_id' => Auth::id(),
         ]);
 
-        $contact = Contact::create($request->all());
+        Auth::user()->contacts()->create($request->all());
 
-        return redirect()->route('contacts.show',$contact->id);
+        return redirect()->route('contacts.index');
 
     }
 
     public function show(Contact $contact)
     {
-
         return view('contacts.show',['contact' => $contact]);
     }
 
@@ -81,7 +82,7 @@ class ContactController extends Controller
         $contact->update($request->all());
 
 
-        return redirect()->route('contacts.show' , $contact->id)
+        return redirect()->route('contacts.index')
             ->with([
                 'contact' => $contact,
             ]);
